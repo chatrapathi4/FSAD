@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - AuthApp</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .home-container {
+            background: white;
+            border-radius: 16px;
+            padding: 50px 40px;
+            width: 480px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 4px solid #667eea;
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            font-weight: 700;
+        }
+        .welcome-text {
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .user-name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .user-email {
+            font-size: 15px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .provider-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        .provider-LOCAL {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .provider-GOOGLE {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        .provider-GITHUB {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        .info-card .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .info-card .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-card .info-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+        .info-card .info-value {
+            color: #333;
+            font-size: 14px;
+        }
+        .btn-logout {
+            display: inline-block;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #ef5350, #e53935);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-logout:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(229,57,53,0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="home-container">
+        <!-- Avatar -->
+        <div class="avatar">
+            <img th:if="${imageUrl != null}" th:src="${imageUrl}" alt="Profile Picture">
+            <div th:if="${imageUrl == null}" class="avatar-placeholder">
+                <span th:text="${#strings.substring(displayName, 0, 1).toUpperCase()}"></span>
+            </div>
+        </div>
+
+        <!-- Welcome Message -->
+        <p class="welcome-text">Welcome back,</p>
+        <h1 class="user-name" th:text="${displayName}">User</h1>
+        <p class="user-email" th:text="${email}">user@example.com</p>
+
+        <!-- Provider Badge -->
+        <span class="provider-badge"
+              th:classappend="'provider-' + ${provider}"
+              th:text="'Signed in via ' + ${provider}">
+        </span>
+
+        <!-- Info Card -->
+        <div class="info-card">
+            <div class="info-row">
+                <span class="info-label">Account Name</span>
+                <span class="info-value" th:text="${displayName}">User</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Email</span>
+                <span class="info-value" th:text="${email}">user@example.com</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Auth Provider</span>
+                <span class="info-value" th:text="${provider}">LOCAL</span>
+            </div>
+        </div>
+
+        <!-- Logout Button -->
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" class="btn-logout">Sign Out</button>
+        </form>
+    </div>
+</body>
+</html>

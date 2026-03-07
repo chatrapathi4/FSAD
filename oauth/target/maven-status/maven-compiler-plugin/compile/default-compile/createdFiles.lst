@@ -1,0 +1,10 @@
+com\example\authapp\model\User$UserBuilder.class
+com\example\authapp\controller\HomeController.class
+com\example\authapp\model\User$AuthProvider.class
+com\example\authapp\service\CustomUserDetailsService.class
+com\example\authapp\AuthAppApplication.class
+com\example\authapp\config\SecurityConfig.class
+com\example\authapp\service\CustomOAuth2UserService.class
+com\example\authapp\repository\UserRepository.class
+com\example\authapp\controller\AuthController.class
+com\example\authapp\model\User.class
